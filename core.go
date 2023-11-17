@@ -43,7 +43,7 @@ type OCRModel struct {
 	// 文字识别模型
 	RecognizerModel *C.FD_C_RecognizerWrapper
 	// 模型整合
-	PPOCRModel *C.FD_C_PPOCRv3Wrapper
+	PPOCRModel C.FD_C_PPOCRv3Wrapper
 }
 
 // 识别引擎
@@ -54,14 +54,11 @@ type Engine struct {
 
 // 执行识别
 func (e Engine) Run(imgPath string) string {
-	fmt.Println("Debug 1")
 	var img C.FD_C_Mat = C.FD_C_Imread(C.CString(imgPath))
-	fmt.Println("Debug 2")
 	var result *C.FD_C_OCRResult = C.FD_C_CreateOCRResult()
-	fmt.Println("Debug 3")
 
-	if !e.booleanToGo(C.FD_C_PPOCRv3WrapperPredict(e.Model.PPOCRModel, img, result)) {
-		fmt.Println("Debug 4")
+	if !e.booleanToGo(C.FD_C_PPOCRv3WrapperPredict(&e.Model.PPOCRModel, img, result)) {
+		fmt.Println("Debug 1")
 		e.destroyOption()
 		e.destroyModel()
 		C.FD_C_DestroyMat(img)
@@ -69,13 +66,13 @@ func (e Engine) Run(imgPath string) string {
 		return "[Error] Failed to predict"
 	}
 
-	fmt.Println("Debug 5")
+	fmt.Println("Debug 2")
 	var res = (*C.char)(C.malloc(10240))
 	defer C.free(unsafe.Pointer(res))
-	fmt.Println("Debug 6")
+	fmt.Println("Debug 3")
 
 	C.FD_C_OCRResultStr(result, res)
-	fmt.Println("Debug 7")
+	fmt.Println("Debug 4")
 
 	e.destroyOption()
 	e.destroyModel()
@@ -116,7 +113,7 @@ func (e Engine) LoadModel() {
 		ClassifierModel:  clsModel,
 		RecognizerOption: recOption,
 		RecognizerModel:  recModel,
-		PPOCRModel:       ppoceModel,
+		PPOCRModel:       *ppoceModel,
 	}
 }
 
@@ -151,7 +148,7 @@ func (e Engine) destroyModel() {
 	C.FD_C_DestroyDBDetectorWrapper(e.Model.DBDetectorModel)
 	C.FD_C_DestroyClassifierWrapper(e.Model.ClassifierModel)
 	C.FD_C_DestroyRecognizerWrapper(e.Model.RecognizerModel)
-	C.FD_C_DestroyPPOCRv3Wrapper(e.Model.PPOCRModel)
+	C.FD_C_DestroyPPOCRv3Wrapper(&e.Model.PPOCRModel)
 }
 
 // C布尔转Go
