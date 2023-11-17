@@ -1,6 +1,6 @@
 # Paddle OCR Model
 
-欢迎使用`PPOCR-GO`, 本目录用于存放`Paddle OCR`模型和字典文件, 点此[查看完整模型列表](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.7/doc/doc_ch/models_list.md).
+欢迎使用`PPOCR for GO`, 本目录用于存放`Paddle OCR`模型和字典文件, 点此[查看完整模型列表](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.7/doc/doc_ch/models_list.md).
 
 运行所需文件列表:
 1. 检测模型: [v4](https://paddleocr.bj.bcebos.com/PP-OCRv4/chinese/ch_PP-OCRv4_det_infer.tar)、[v3](https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/ch_PP-OCRv3_det_infer.tar)

@@ -1,0 +1,7 @@
+{
+	"Path": "github.com/skye-z/ppocr4go",
+	"Main": true,
+	"Dir": "/Users/zhaoguiyang/Desktop/Workspace/Golang/ppocr4go",
+	"GoMod": "/Users/zhaoguiyang/Desktop/Workspace/Golang/ppocr4go/go.mod",
+	"GoVersion": "1.21.0"
+}

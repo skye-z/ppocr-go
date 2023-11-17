@@ -1,6 +1,6 @@
 # FastDeploy Library
 
-欢迎使用`PPOCR-GO`, 本目录用于存放`FastDeploy`的动态链接库.
+欢迎使用`PPOCR for GO`, 本目录用于存放`FastDeploy`的动态链接库.
 
 你可以使用下方列出的预编译库
 
