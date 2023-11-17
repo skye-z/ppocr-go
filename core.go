@@ -9,7 +9,10 @@ package ppocr
 #include <stdlib.h>
 */
 import "C"
-import "unsafe"
+import (
+	"fmt"
+	"unsafe"
+)
 
 // 图像识别配置
 type OCRConfig struct {
@@ -86,18 +89,22 @@ func (e Engine) Run(imgPath string) string {
 // 加载模型
 func (e Engine) LoadModel() {
 	// 加载文本检测模型
+	fmt.Println("加载文本检测模型")
 	var detOption *C.FD_C_RuntimeOptionWrapper = C.FD_C_CreateRuntimeOptionWrapper()
 	e.mountOption(detOption)
 	var detModel *C.FD_C_DBDetectorWrapper = C.FD_C_CreateDBDetectorWrapper(e.getModel(e.Config.DBDetectorPath), e.getParam(e.Config.DBDetectorPath), detOption, C.FD_C_ModelFormat_PADDLE)
 	// 加载方向分类模型
+	fmt.Println("加载方向分类模型")
 	var clsOption *C.FD_C_RuntimeOptionWrapper = C.FD_C_CreateRuntimeOptionWrapper()
 	e.mountOption(clsOption)
 	var clsModel *C.FD_C_ClassifierWrapper = C.FD_C_CreateClassifierWrapper(e.getModel(e.Config.ClassifierPath), e.getParam(e.Config.ClassifierPath), clsOption, C.FD_C_ModelFormat_PADDLE)
 	// 加载文字识别模型
+	fmt.Println("加载文字识别模型")
 	var recOption *C.FD_C_RuntimeOptionWrapper = C.FD_C_CreateRuntimeOptionWrapper()
 	e.mountOption(recOption)
 	var recModel *C.FD_C_RecognizerWrapper = C.FD_C_CreateRecognizerWrapper(e.getModel(e.Config.ClassifierPath), e.getParam(e.Config.RecognizerPath), C.CString(e.Config.KeysPath), recOption, C.FD_C_ModelFormat_PADDLE)
 	// 创建PP-OCR
+	fmt.Println("创建PP-OCR")
 	var ppoceModel *C.FD_C_PPOCRv3Wrapper = C.FD_C_CreatePPOCRv3Wrapper(detModel, clsModel, recModel)
 
 	if !e.booleanToGo(C.FD_C_PPOCRv3WrapperInitialized(ppoceModel)) {
@@ -105,6 +112,7 @@ func (e Engine) LoadModel() {
 		e.destroyModel()
 		e.Status = -1
 		// 初始化失败
+		fmt.Println("初始化失败")
 		return
 	}
 

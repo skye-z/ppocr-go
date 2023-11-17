@@ -9,21 +9,24 @@ import (
 
 func main() {
 	rootPath, _ := os.Getwd()
+	fmt.Println("创建引擎")
 	// 创建引擎
 	ocr := ppocr.Engine{
 		Config: ppocr.OCRConfig{
 			UseGPU:         false,
-			DBDetectorPath: rootPath + "/det-v4",
-			ClassifierPath: rootPath + "/cls-v2",
-			RecognizerPath: rootPath + "/rec-v4",
-			KeysPath:       rootPath + "/keys.txt",
+			DBDetectorPath: rootPath + "/model/det-v4",
+			ClassifierPath: rootPath + "/model/cls-v2",
+			RecognizerPath: rootPath + "/model/rec-v4",
+			KeysPath:       rootPath + "/model/keys.txt",
 		},
 	}
+	fmt.Println("加载模型")
 	// 加载模型
 	ocr.LoadModel()
+	fmt.Println("执行识别")
 	// 执行识别
-	res1 := ocr.Run(rootPath + "/demo.png")
-	res2 := ocr.Run(rootPath + "/demo.jpg")
+	res1 := ocr.Run(rootPath + "/model/demo.png")
+	res2 := ocr.Run(rootPath + "/model/demo.jpg")
 	fmt.Println(res1 + "\n=====================================\n")
 	fmt.Println(res2 + "\n=====================================\n")
 }
