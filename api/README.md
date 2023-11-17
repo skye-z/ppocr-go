@@ -1,4 +1,4 @@
-# FastDeploy API
+# FastDeploy C++ API
 
 当前支持版本: 1.0.7
 
