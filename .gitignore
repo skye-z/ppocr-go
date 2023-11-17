@@ -10,3 +10,6 @@ lib/*
 demo/model/*
 !demo/model/README.md
 !demo/model/download.sh
+model/*
+!model/README.md
+!model/download.sh
