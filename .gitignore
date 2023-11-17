@@ -7,6 +7,6 @@
 lib/*
 !lib/README.md
 !lib/download.sh
-model/*
-!model/README.md
-!model/download.sh
+demo/model/*
+!demo/model/README.md
+!demo/model/download.sh
