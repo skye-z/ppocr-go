@@ -102,7 +102,7 @@ func (e Engine) LoadModel() {
 	fmt.Println("加载文字识别模型")
 	var recOption *C.FD_C_RuntimeOptionWrapper = C.FD_C_CreateRuntimeOptionWrapper()
 	e.mountOption(recOption)
-	var recModel *C.FD_C_RecognizerWrapper = C.FD_C_CreateRecognizerWrapper(e.getModel(e.Config.ClassifierPath), e.getParam(e.Config.RecognizerPath), C.CString(e.Config.KeysPath), recOption, C.FD_C_ModelFormat_PADDLE)
+	var recModel *C.FD_C_RecognizerWrapper = C.FD_C_CreateRecognizerWrapper(e.getModel(e.Config.RecognizerPath), e.getParam(e.Config.RecognizerPath), C.CString(e.Config.KeysPath), recOption, C.FD_C_ModelFormat_PADDLE)
 	// 创建PP-OCR
 	fmt.Println("创建PP-OCR")
 	var ppoceModel *C.FD_C_PPOCRv3Wrapper = C.FD_C_CreatePPOCRv3Wrapper(detModel, clsModel, recModel)
